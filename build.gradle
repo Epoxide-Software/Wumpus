@@ -1,0 +1,28 @@
+buildscript {
+
+    repositories {
+
+        jcenter()
+    }
+
+    dependencies {
+
+        classpath 'com.github.rodionmoiseev.gradle.plugins:idea-utils:0.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea-utils'
+apply plugin: 'maven'
+
+group 'org.epoxide.wumpus'
+archivesBaseName = 'Wumpus'
+
+repositories {
+
+}
+
+dependencies {
+
+}
