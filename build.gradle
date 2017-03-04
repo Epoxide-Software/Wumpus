@@ -8,6 +8,7 @@ buildscript {
     dependencies {
 
         classpath 'com.github.rodionmoiseev.gradle.plugins:idea-utils:0.2'
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1"
     }
 }
 
@@ -15,6 +16,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea-utils'
 apply plugin: 'maven'
+apply plugin: "org.sonarqube"
 
 group 'org.epoxide.wumpus'
 archivesBaseName = 'Wumpus'
@@ -25,4 +27,12 @@ repositories {
 
 dependencies {
 
+}
+
+sonarqube {
+
+    properties {
+        property "sonar.host.url", "https://sonarqube.com"
+        property "sonar.login", System.getenv("sonarQubeApiKey")
+    }
 }
