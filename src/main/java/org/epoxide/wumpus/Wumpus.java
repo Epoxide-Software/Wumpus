@@ -21,6 +21,10 @@ public class Wumpus {
         this.token = token;
 
         this.websocket = new EventWebSocket(this);
-        System.out.println(ENDPOINTS.getGateway().shards);
+        try {
+            System.out.println(ENDPOINTS.getGateway().execute().body().shards);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
