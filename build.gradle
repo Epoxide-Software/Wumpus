@@ -23,12 +23,19 @@ archivesBaseName = 'Wumpus'
 
 repositories {
     mavenCentral()
+    maven {
+
+        url 'http://maven.epoxide.org'
+    }
 }
 
 dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.0'
+
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.0.RC3'
+    compile 'org.reflections:reflections:0.9.10'
 }
 
 sonarqube {

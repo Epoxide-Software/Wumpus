@@ -8,7 +8,4 @@ public interface Endpoints {
 
     @GET("gateway")
     Call<ResponseGateway> getGateway();
-
-    @GET("gateway/bot")
-    Call<ResponseGateway> getGatewayBot();
 }
