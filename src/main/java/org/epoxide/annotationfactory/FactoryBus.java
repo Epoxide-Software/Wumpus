@@ -84,7 +84,7 @@ public class FactoryBus {
 
     }
 
-    public static Annotation getAnnoationFromArray(Annotation[] annotations, IAnnotationFactory factory) {
+    public static Annotation getAnnotationFromArray(Annotation[] annotations, IAnnotationFactory factory) {
         for (Annotation annotation : annotations) {
             if (annotation.annotationType() == factory.getAnnotation()) {
                 return annotation;
