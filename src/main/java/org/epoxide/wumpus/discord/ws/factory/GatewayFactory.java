@@ -23,7 +23,7 @@ public class GatewayFactory implements IAnnotationFactory {
 
     @Override
     public void handleClass(Class clazz) {
-        DiscordGateway event = (DiscordGateway) FactoryBus.getAnnoationFromArray(clazz.getAnnotations(), this);
+        DiscordGateway event = (DiscordGateway) FactoryBus.getAnnotationFromArray(clazz.getAnnotations(), this);
         GatewayFactory.GATEWAY.put(event.opcode(), clazz);
     }
 

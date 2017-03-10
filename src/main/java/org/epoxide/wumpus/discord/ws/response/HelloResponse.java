@@ -1,15 +1,12 @@
 package org.epoxide.wumpus.discord.ws.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.Wumpus;
 import org.epoxide.wumpus.discord.EventWebSocket;
 import org.epoxide.wumpus.discord.ws.Packet;
 import org.epoxide.wumpus.discord.ws.factory.DiscordGateway;
 import org.epoxide.wumpus.discord.ws.request.IdentifyRequest;
-import org.epoxide.wumpus.discord.ws.request.RequestHeartbeat;
 
-import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,9 +17,9 @@ public class HelloResponse implements Data {
     private Runnable heartbeatTask;
     private ScheduledExecutorService keepAlive = Executors.newSingleThreadScheduledExecutor();
 
-    @JsonProperty("_trace")
+    @SerializedName("_trace")
     private String[] trace;
-    @JsonProperty("heartbeat_interval")
+    @SerializedName("heartbeat_interval")
     private long heartbeatInterval;
 
     public long getHeartbeatInterval() {
@@ -33,11 +30,7 @@ public class HelloResponse implements Data {
     public void onCall(Wumpus wumpus, EventWebSocket ws, Packet response) {
         heartbeatTask = () -> {
             if (ws.getSession() != null && ws.getSession().isOpen()) {
-                try {
-                    ws.getSession().getRemote().sendStringByFuture(EventWebSocket.JACKSON.writeValueAsString(new RequestHeartbeat(1, ws.seq)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ws.getSession().getRemote().sendStringByFuture(EventWebSocket.GSON.toJson(new Packet(1, ws.seq)));
             }
         };
 
@@ -48,13 +41,7 @@ public class HelloResponse implements Data {
         }
 
         IdentifyRequest.Properties properties = new IdentifyRequest.Properties(System.getProperty("os.name"), "Wumpus", "Wumpus", "", "");
-        IdentifyRequest request = new IdentifyRequest("Bot " + ws.token, properties, false, 0, new int[]{0, 1});
-        try {
-            System.out.println(ws.getSession().getRemote());
-            System.out.println(EventWebSocket.JACKSON.writeValueAsString(new Packet(2, request)));
-            ws.getSession().getRemote().sendStringByFuture(EventWebSocket.JACKSON.writeValueAsString(new Packet(2, request)));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        IdentifyRequest request = new IdentifyRequest("Bot " + wumpus.getToken(), properties, false, 0, new int[]{0, 1});
+        ws.getSession().getRemote().sendStringByFuture(EventWebSocket.GSON.toJson(new Packet(2, request)));
     }
 }

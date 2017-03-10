@@ -1,6 +1,6 @@
 package org.epoxide.wumpus.discord.ws.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.Wumpus;
 import org.epoxide.wumpus.discord.EventWebSocket;
 import org.epoxide.wumpus.discord.ws.Packet;
@@ -10,7 +10,7 @@ public class IdentifyRequest implements Data {
     private String token;
     private Properties properties;
     private boolean compress;
-    @JsonProperty("large_threshold")
+    @SerializedName("large_threshold")
     private Integer largeThreshold;
     private int[] shard;
 
@@ -22,29 +22,24 @@ public class IdentifyRequest implements Data {
         this.shard = shard;
     }
 
-    @Override
-    public void onCall(Wumpus wumpus, EventWebSocket ws, Packet response) {
-
-    }
-
     public static class Properties {
-        @JsonProperty("$os")
+        @SerializedName("$os")
         String os;
-        @JsonProperty("$device")
+        @SerializedName("$device")
         String device;
-        @JsonProperty("$browser")
+        @SerializedName("$browser")
         String browser;
-        @JsonProperty("$referrer")
+        @SerializedName("$referrer")
         String referrer;
-        @JsonProperty("$referring_domain")
-        String referring_domain;
+        @SerializedName("$referring_domain")
+        String referringDomain;
 
-        public Properties(String os, String device, String browser, String referrer, String referring_domain) {
+        public Properties(String os, String device, String browser, String referrer, String referringDomain) {
             this.os = os;
             this.device = device;
             this.browser = browser;
             this.referrer = referrer;
-            this.referring_domain = referring_domain;
+            this.referringDomain = referringDomain;
         }
     }
 }

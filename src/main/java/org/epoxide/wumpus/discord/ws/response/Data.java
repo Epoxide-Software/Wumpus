@@ -6,5 +6,6 @@ import org.epoxide.wumpus.discord.ws.Packet;
 
 public interface Data {
 
-    void onCall(Wumpus wumpus, EventWebSocket ws, Packet response);
+    default void onCall(Wumpus wumpus, EventWebSocket ws, Packet response) {
+    }
 }

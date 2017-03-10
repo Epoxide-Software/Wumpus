@@ -1,17 +1,14 @@
 package org.epoxide.wumpus.discord.ws;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.epoxide.wumpus.discord.ws.adapter.PacketDeserializer;
+import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.discord.ws.response.Data;
 
-@JsonDeserialize(using = PacketDeserializer.class)
 public class Packet {
 
     private int op;
 
-    @JsonProperty("d")
-    private Data data;
+    @SerializedName("d")
+    private Object data;
 
     private String t;
     private String s;
@@ -19,7 +16,7 @@ public class Packet {
     public Packet() {
     }
 
-    public Packet(int op, Data data) {
+    public Packet(int op, Object data) {
         this.op = op;
         this.data = data;
     }
@@ -32,7 +29,7 @@ public class Packet {
         this.op = op;
     }
 
-    public Data getData() {
+    public Object getData() {
         return data;
     }
 

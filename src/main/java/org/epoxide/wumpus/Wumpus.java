@@ -8,7 +8,7 @@ import org.epoxide.wumpus.discord.EventWebSocket;
 import org.epoxide.wumpus.discord.User;
 import org.epoxide.wumpus.utils.Endpoints;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.net.URI;
 
@@ -16,26 +16,20 @@ public class Wumpus {
 
     public static final Endpoints ENDPOINTS = new Retrofit.Builder()
             .baseUrl("https://discordapp.com/api/")
-            .addConverterFactory(JacksonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build().create(Endpoints.class);
 
-    private static Wumpus INSTANCE;
     private final String token;
     private final WebSocketClient ws;
     private final EventWebSocket websocket;
     private User self;
 
     public Wumpus(String token, int[] shards, int shardCount) {
-        INSTANCE = this;
-
+        //TODO if shards and shardCount is null and -1 get recommended from /gateway/bot
         this.token = token;
-        for (int shardID : shards) {
-            if (shardID >= shardCount) {
-                //TODO Error
-            }
-        }
+
         //TODO move to shard
-        this.websocket = new EventWebSocket();
+        this.websocket = new EventWebSocket(this);
         this.ws = new WebSocketClient(new SslContextFactory());
         try {
             this.ws.start();
@@ -53,9 +47,5 @@ public class Wumpus {
 
     public void setSelf(User self) {
         this.self = self;
-    }
-
-    public static Wumpus getInstance() {
-        return INSTANCE;
     }
 }

@@ -24,7 +24,7 @@ public class EventFactory implements IAnnotationFactory {
 
     @Override
     public void handleClass(Class clazz) {
-        DiscordEvent event = (DiscordEvent) FactoryBus.getAnnoationFromArray(clazz.getAnnotations(), this);
+        DiscordEvent event = (DiscordEvent) FactoryBus.getAnnotationFromArray(clazz.getAnnotations(), this);
         EventFactory.EVENTS.put(event.name(), clazz);
     }
 
