@@ -1,9 +1,10 @@
 package org.epoxide.wumpus.discord.ws.factory;
 
-import org.epoxide.wumpus.factory.AnnotationFactory;
-import org.epoxide.wumpus.factory.AnnotationTarget;
-import org.epoxide.wumpus.factory.FactoryBus;
-import org.epoxide.wumpus.factory.IAnnotationFactory;
+
+import org.epoxide.annotationfactory.AnnotationFactory;
+import org.epoxide.annotationfactory.AnnotationTarget;
+import org.epoxide.annotationfactory.FactoryBus;
+import org.epoxide.annotationfactory.IAnnotationFactory;
 
 import java.lang.annotation.Annotation;
 import java.util.Collections;

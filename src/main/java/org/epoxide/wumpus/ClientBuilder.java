@@ -10,6 +10,6 @@ public class ClientBuilder {
 
     public Wumpus login() {
 
-        return new Wumpus(token);
+        return new Wumpus(token, new int[0], 1);
     }
 }

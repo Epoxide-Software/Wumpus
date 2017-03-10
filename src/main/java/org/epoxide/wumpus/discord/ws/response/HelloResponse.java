@@ -2,6 +2,7 @@ package org.epoxide.wumpus.discord.ws.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.epoxide.wumpus.Wumpus;
 import org.epoxide.wumpus.discord.EventWebSocket;
 import org.epoxide.wumpus.discord.ws.Packet;
 import org.epoxide.wumpus.discord.ws.factory.DiscordGateway;
@@ -29,11 +30,11 @@ public class HelloResponse implements Data {
     }
 
     @Override
-    public void onCall(Packet response, EventWebSocket webSocket) {
+    public void onCall(Wumpus wumpus, EventWebSocket ws, Packet response) {
         heartbeatTask = () -> {
-            if (webSocket.getSession() != null && webSocket.getSession().isOpen()) {
+            if (ws.getSession() != null && ws.getSession().isOpen()) {
                 try {
-                    webSocket.getSession().getRemote().sendStringByFuture(EventWebSocket.JACKSON.writeValueAsString(new RequestHeartbeat(1, webSocket.seq)));
+                    ws.getSession().getRemote().sendStringByFuture(EventWebSocket.JACKSON.writeValueAsString(new RequestHeartbeat(1, ws.seq)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -47,9 +48,11 @@ public class HelloResponse implements Data {
         }
 
         IdentifyRequest.Properties properties = new IdentifyRequest.Properties(System.getProperty("os.name"), "Wumpus", "Wumpus", "", "");
-        IdentifyRequest request = new IdentifyRequest("Bot "+webSocket.token, properties, false, 0, new int[]{0, 1});
+        IdentifyRequest request = new IdentifyRequest("Bot " + ws.token, properties, false, 0, new int[]{0, 1});
         try {
-            webSocket.getSession().getRemote().sendStringByFuture(EventWebSocket.JACKSON.writeValueAsString(new Packet(2, request)));
+            System.out.println(ws.getSession().getRemote());
+            System.out.println(EventWebSocket.JACKSON.writeValueAsString(new Packet(2, request)));
+            ws.getSession().getRemote().sendStringByFuture(EventWebSocket.JACKSON.writeValueAsString(new Packet(2, request)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package org.epoxide.wumpus.discord.ws.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.epoxide.wumpus.Wumpus;
 import org.epoxide.wumpus.discord.EventWebSocket;
 import org.epoxide.wumpus.discord.ws.Packet;
 import org.epoxide.wumpus.discord.ws.response.Data;
@@ -22,7 +23,7 @@ public class IdentifyRequest implements Data {
     }
 
     @Override
-    public void onCall(Packet response, EventWebSocket webSocket) {
+    public void onCall(Wumpus wumpus, EventWebSocket ws, Packet response) {
 
     }
 

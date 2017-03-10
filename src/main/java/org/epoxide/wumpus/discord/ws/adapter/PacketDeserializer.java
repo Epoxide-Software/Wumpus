@@ -31,7 +31,7 @@ public class PacketDeserializer extends JsonDeserializer<Packet> {
             if (clazz == null)
                 throw new NullPointerException("Gateway Op code not supported " + op);
         }
-
+        packet.setOp(op);
         if (!node.get("d").isNull())
             packet.setData((Data) EventWebSocket.JACKSON.readValue(node.get("d").toString(), clazz));
         return packet;
