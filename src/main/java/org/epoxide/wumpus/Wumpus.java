@@ -48,4 +48,8 @@ public class Wumpus {
     public void setSelf(User self) {
         this.self = self;
     }
+
+    public User getSelf() {
+        return self;
+    }
 }

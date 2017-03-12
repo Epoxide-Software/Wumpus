@@ -1,24 +1,27 @@
 package org.epoxide.wumpus.discord.ws;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.discord.ws.response.Data;
 
 public class Packet {
 
+    @Expose
     private int op;
-
-    @SerializedName("d")
-    private Object data;
-
+    @Expose
     private String t;
+    @Expose
     private String s;
+    @Expose
+    @SerializedName("d")
+    private Object object;
 
     public Packet() {
     }
 
-    public Packet(int op, Object data) {
+    public Packet(int op, Object object) {
         this.op = op;
-        this.data = data;
+        this.object = object;
     }
 
     public int getOp() {
@@ -29,12 +32,12 @@ public class Packet {
         this.op = op;
     }
 
-    public Object getData() {
-        return data;
+    public Object getObject() {
+        return object;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setObject(Object object) {
+        this.object = object;
     }
 
     public String getT() {

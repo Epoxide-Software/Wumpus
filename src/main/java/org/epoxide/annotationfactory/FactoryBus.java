@@ -92,4 +92,13 @@ public class FactoryBus {
         }
         return null;
     }
+
+    public static Annotation getAnnotationFromArray(Annotation[] annotations, Class<? extends Annotation> a) {
+        for (Annotation annotation : annotations) {
+            if (annotation.annotationType() == a) {
+                return annotation;
+            }
+        }
+        return null;
+    }
 }

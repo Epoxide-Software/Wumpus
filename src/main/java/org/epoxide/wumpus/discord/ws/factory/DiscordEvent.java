@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface DiscordEvent {
 
     String name();
+
+    boolean raw() default false;
 }

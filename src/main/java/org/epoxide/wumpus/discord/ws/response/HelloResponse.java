@@ -1,5 +1,6 @@
 package org.epoxide.wumpus.discord.ws.response;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.Wumpus;
 import org.epoxide.wumpus.discord.EventWebSocket;
@@ -17,8 +18,10 @@ public class HelloResponse implements Data {
     private Runnable heartbeatTask;
     private ScheduledExecutorService keepAlive = Executors.newSingleThreadScheduledExecutor();
 
+    @Expose
     @SerializedName("_trace")
     private String[] trace;
+    @Expose
     @SerializedName("heartbeat_interval")
     private long heartbeatInterval;
 
