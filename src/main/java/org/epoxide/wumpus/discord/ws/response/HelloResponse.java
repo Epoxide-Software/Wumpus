@@ -1,6 +1,5 @@
 package org.epoxide.wumpus.discord.ws.response;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.Wumpus;
 import org.epoxide.wumpus.discord.EventWebSocket;
@@ -16,14 +15,12 @@ import java.util.concurrent.TimeUnit;
 public class HelloResponse implements Data {
 
     private Runnable heartbeatTask;
-    private ScheduledExecutorService keepAlive = Executors.newSingleThreadScheduledExecutor();
+    public static ScheduledExecutorService keepAlive = Executors.newSingleThreadScheduledExecutor();
 
-    @Expose
     @SerializedName("_trace")
     private String[] trace;
-    @Expose
     @SerializedName("heartbeat_interval")
-    private long heartbeatInterval;
+    private int heartbeatInterval;
 
     public long getHeartbeatInterval() {
         return this.heartbeatInterval;
@@ -32,7 +29,7 @@ public class HelloResponse implements Data {
     @Override
     public void onCall(Wumpus wumpus, EventWebSocket ws, Packet response) {
         heartbeatTask = () -> {
-            if (ws.getSession() != null && ws.getSession().isOpen()) {
+            if (ws.getSession() != null) {
                 ws.getSession().getRemote().sendStringByFuture(EventWebSocket.GSON.toJson(new Packet(1, ws.seq)));
             }
         };

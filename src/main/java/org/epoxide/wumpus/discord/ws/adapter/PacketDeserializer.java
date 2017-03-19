@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.epoxide.wumpus.discord.EventWebSocket;
 import org.epoxide.wumpus.discord.ws.Packet;
 import org.epoxide.wumpus.discord.ws.factory.EventFactory;
 import org.epoxide.wumpus.discord.ws.factory.GatewayFactory;
@@ -12,6 +11,7 @@ import org.epoxide.wumpus.discord.ws.factory.GatewayFactory;
 import java.lang.reflect.Type;
 
 public class PacketDeserializer implements JsonDeserializer<Packet> {
+
 
     @Override
     public Packet deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
@@ -34,7 +34,7 @@ public class PacketDeserializer implements JsonDeserializer<Packet> {
         }
 
         if (!node.get("d").isJsonNull())
-            packet.setObject(EventWebSocket.GSON.fromJson(node.get("d").toString(), clazz));
+            packet.setObject(context.deserialize(node.get("d"), clazz));
 
         return packet;
     }

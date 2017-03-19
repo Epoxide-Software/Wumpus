@@ -1,46 +1,42 @@
-package org.epoxide.wumpus.discord;
+package org.epoxide.wumpus.discord.type;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.epoxide.wumpus.discord.ws.factory.DiscordEvent;
 
 import java.util.List;
+import java.util.Map;
 
 @DiscordEvent(name = "GUILD_CREATE")
 public class Guild {
-    @Expose
     private final String id;
-    @Expose
     private String name;
-    @Expose
     private boolean unavailable;
-    @Expose
     @SerializedName("verification_level")
     private int verificationLevel;
-    @Expose
     private String region;
-    @Expose
     private User owner;
-    @Expose
     @SerializedName("mfa_level")
     private int mfaLevel;
+    @SerializedName("member_count")
     private int memberCount;
     private boolean large;
     private String icon;
+    @SerializedName("default_message_notifications")
     private int defaultMessageNotifications;
+    @SerializedName("afk_timeout")
     private int afkTimeout;
-    private String afkChannelID;
+    @SerializedName("afk_channel_id")
+    private Channel afkChannel;
 
-    //    private Role[] roles;
-//    private Presence[] presences;
+    private Map<String, Role> roles;
+    //    private Presence[] presences;
     private List<User> members;
-//    private Feature[] features;
+    //    private Feature[] features;
 //    private Emoji[] emojis;
-//    private Channel channels;
+    private List<Channel> channels;
 
     public Guild(String id) {
         this.id = id;
-
     }
 
     public void setName(String name) {
@@ -87,8 +83,8 @@ public class Guild {
         this.afkTimeout = afkTimeout;
     }
 
-    public void setAfkChannelID(String afkChannelID) {
-        this.afkChannelID = afkChannelID;
+    public void setAfkChannel(Channel afkChannel) {
+        this.afkChannel = afkChannel;
     }
 
     public void setMembers(List<User> members) {
@@ -143,7 +139,7 @@ public class Guild {
         return afkTimeout;
     }
 
-    public String getAfkChannelID() {
-        return afkChannelID;
+    public Channel getAfkChannel() {
+        return afkChannel;
     }
 }

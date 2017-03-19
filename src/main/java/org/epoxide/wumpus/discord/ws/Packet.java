@@ -1,18 +1,12 @@
 package org.epoxide.wumpus.discord.ws;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.epoxide.wumpus.discord.ws.response.Data;
 
 public class Packet {
 
-    @Expose
     private int op;
-    @Expose
     private String t;
-    @Expose
     private String s;
-    @Expose
     @SerializedName("d")
     private Object object;
 

@@ -1,4 +1,4 @@
-package org.epoxide.wumpus.discord;
+package org.epoxide.wumpus.discord.type;
 
 import java.util.List;
 
