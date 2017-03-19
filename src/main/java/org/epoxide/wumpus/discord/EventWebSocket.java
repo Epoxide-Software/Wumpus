@@ -16,6 +16,8 @@ import org.epoxide.wumpus.discord.ws.adapter.UserDeserializer;
 import org.epoxide.wumpus.discord.ws.response.Data;
 import org.epoxide.wumpus.discord.ws.response.HelloResponse;
 
+import java.util.logging.Level;
+
 public class EventWebSocket extends WebSocketAdapter {
     public static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(Packet.class, new PacketDeserializer())
@@ -35,19 +37,19 @@ public class EventWebSocket extends WebSocketAdapter {
     @Override
     public void onWebSocketConnect(Session session) {
         super.onWebSocketConnect(session);
-        System.out.println("WebSocket Connected.");
+        Wumpus.LOG.log(Level.SEVERE, "WebSocket Connected.");
     }
 
     @Override
     public void onWebSocketClose(int statusCode, String reason) {
         super.onWebSocketClose(statusCode, reason);
-        System.out.println("WebSocket Disconnected. " + statusCode + ":" + reason);
+        Wumpus.LOG.log(Level.SEVERE, "WebSocket Disconnected. " + statusCode + ":" + reason);
         HelloResponse.keepAlive.shutdown();
     }
 
     @Override
     public void onWebSocketError(Throwable cause) {
-        System.out.println("Encountered WebSocket error: " + cause);
+        Wumpus.LOG.log(Level.SEVERE, "Encountered WebSocket error: " + cause);
     }
 
     @Override

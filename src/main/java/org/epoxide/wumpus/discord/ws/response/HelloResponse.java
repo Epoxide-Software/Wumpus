@@ -34,11 +34,7 @@ public class HelloResponse implements Data {
             }
         };
 
-        try {
-            keepAlive.scheduleAtFixedRate(heartbeatTask, 0, this.getHeartbeatInterval(), TimeUnit.MILLISECONDS);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        keepAlive.scheduleAtFixedRate(heartbeatTask, 0, this.getHeartbeatInterval(), TimeUnit.MILLISECONDS);
 
         IdentifyRequest.Properties properties = new IdentifyRequest.Properties(System.getProperty("os.name"), "Wumpus", "Wumpus", "", "");
         IdentifyRequest request = new IdentifyRequest("Bot " + wumpus.getToken(), properties, false, 0, new int[]{0, 1});

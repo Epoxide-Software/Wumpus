@@ -11,8 +11,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Wumpus {
+
+    public static final Logger LOG = Logger.getLogger("Wumpus");
 
     public static final Endpoints ENDPOINTS = new Retrofit.Builder()
             .baseUrl("https://discordapp.com/api/")
@@ -38,7 +42,8 @@ public class Wumpus {
             this.ws.start();
             this.ws.connect(this.websocket, new URI(Wumpus.ENDPOINTS.getGateway().execute().body().url + "?v=5&encoding=json"), new ClientUpgradeRequest());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "WebSocket Internal Error");
+            return;
         }
 
         FactoryBus.autoSearch();
